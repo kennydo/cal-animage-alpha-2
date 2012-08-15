@@ -19,17 +19,6 @@ class ScheduleAdmin(admin.ModelAdmin):
         WeeklyInline,
     ]
     
-#class ShowingAdmin(admin.ModelAdmin):
-#   list_display = ('title', 'location', 'date', 'start_time', 'end_time', 'schedule')
-#   list_filter = ('schedule',)
-
-#class WeeklyAdmin(admin.ModelAdmin):
-#   list_display = ('title', 'schedule')
-#   list_filter = ('schedule',)
-
 admin.site.register(Building, BuildingAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
-
-#admin.site.register(Showing, ShowingAdmin)
-#admin.site.register(Weekly, WeeklyAdmin)
