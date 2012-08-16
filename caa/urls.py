@@ -7,13 +7,13 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Current schedule
-    url(r'^schedules/current/$', schedules.views.CurrentSchedule.as_view(), name='caa_current_schedule'),
+#    url(r'^schedules/current/$', schedules.views.CurrentSchedule.as_view(), name='caa_current_schedule'),
     
     # Previous schedule
-    url(r'^schedules/(?P<year>\d{4})/(?P<semester>Fall|Spring)/$', schedules.views.ScheduleDetail.as_view(), name='caa_schedule'),
+#    url(r'^schedules/(?P<year>\d{4})/(?P<semester>Fall|Spring)/$', schedules.views.ScheduleDetail.as_view(), name='caa_schedule'),
 
     # Officers listing
-    url(r'^officers/$', officers.views.OfficersList.as_view(), name='caa_officers'),
+#    url(r'^officers/$', officers.views.OfficersList.as_view(), name='caa_officers'),
 
     # Previous marathon
     url(r'^marathons/(?P<year>\d{4})/(?P<semester>Fall|Spring)/$', marathons.views.MarathonDetail.as_view(), name='caa_marathon'),
