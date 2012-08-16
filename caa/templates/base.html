@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Cal Animage Alpha - {% block title %}UC Berkeley's Anime Club{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css" />
 	<meta name="description" content="The official Anime Club at the University of California, Berkeley" />
 	<meta name="keywords" content="berkeley, university, uc berkeley, anime club, cal animage alpha, cal" />
 	<link rel="alternate" title="Cal Animage Alpha RSS" href="http://blog.calanimagealpha.com/feeds/posts/default" type="application/rss+xml">
@@ -105,6 +105,6 @@
 	var previewsFolder = '/images/placeholders/';
 {% endif %}
 </script>
-<script type="text/javascript" src="/script.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}script.js"></script>
 </body>
 </html>
