@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Officers{% endblock %}
+
+{% block content %}
+<h1>Officers</h1>{% for department in departments %}
+<h2>{{ department.name }}</h2>
+<div class="department">{% for officer in department.officer_set.all %}
+	<div class="officer {% if officer.is_head %}head{% endif %}">
+		<div class="picture">{% if officer.picture_filename %}<img src="/images/officers/{{ officer.picture_filename }}" height="100" width="100" alt="Officer Picture" />{% else %}<span>No Photo</span>{% endif %}</div>
+		<div class="identity">
+			{% if officer.title %}<div class="title">{{ officer.title }}:</div>{% endif %} {{ officer.name }}<br />
+			<div class="alias">Alias:</div> {{ officer.nickname }}
+		</div>
+	</div>{% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

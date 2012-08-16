@@ -1,5 +1,4 @@
 from django.db import models
-import itertools
 
 class Officer(models.Model):
     name = models.CharField(max_length=50)
@@ -23,7 +22,3 @@ class Department(models.Model):
     
     class Meta:
         ordering = ['name']
-        
-    def get_officers(self):
-        officers = Officer.objects.filter(department__exact=self)
-        return officers
