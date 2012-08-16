@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ schedule.get_semester_display }} {{ schedule.year }} Showing Schedule{% endblock %}
+
+{% block content %}
+<h1>{{ schedule.get_semester_display }} {{ schedule.year }} Showing Schedule</h1>
+<table class="schedule">
+	<tr>
+		<th class="date">Date</th>
+		<th class="series">Showing</th>
+		<th class="location">Location</th>
+	</tr>
+	{% for showing in schedule.showing_set.all %}
+	<tr>
+		<td>{{ showing.date|date:"M j" }}</td>
+		<td>{{ showing.title }}</td>
+		{% if showing.location %}
+		<td>{% if showing.location.building.map_url %}<a href="{{ showing.location.building.map_url }}" target="_blank">{{ showing.location }}</a>{% else %}{{ showing.location }}{% endif %}</td>
+		{% else %}
+		<td>TBD</td>
+		{% endif %}
+	</tr>{% endfor %}
+	<tr>
+		<td>Weeklies</td>
+		<td colspan="2">{{ schedule.weekly_set.all|join:", " }}</td>
+	</tr>
+</table>
+{% if all_schedules %}
+<h2>Schedule Archive</h2>
+<ul>{% for previous_schedule in all_schedules %}
+	<li><a href="/schedules/{{ previous_schedule.year }}/{{ previous_schedule.get_semester_display }}">{{ previous_schedule.year }} {{ previous_schedule.get_semester_display }}</a> {% if previous_schedule.has_marathon %}(<a href="/marathons/{{ previous_schedule.marathon.year }}/{{ previous_schedule.marathon.get_semester_display }}">Marathon</a>){% endif %}</li>{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

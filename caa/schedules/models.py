@@ -81,12 +81,6 @@ class Schedule(models.Model):
     def __unicode__(self):
         return u'%d %s' % (self.year, self.get_semester_display())
         
-    def get_showings(self):
-        return Showing.objects.filter(schedule__exact=self)
-    
-    def get_weeklies(self):
-        return Weekly.objects.filter(schedule__exact=self)
-
     def has_marathon(self):
         marathon = Marathon.objects.filter(year__exact=self.year).filter(semester__exact=self.semester)
         if len(marathon):
