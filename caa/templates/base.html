@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Cal Animage Alpha - {% block title %}UC Berkeley's Anime Club{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<meta name="description" content="The official Anime Club at the University of California, Berkeley" />
+	<meta name="keywords" content="berkeley, university, uc berkeley, anime club, cal animage alpha, cal" />
+	<link rel="alternate" title="Cal Animage Alpha RSS" href="http://blog.calanimagealpha.com/feeds/posts/default" type="application/rss+xml">
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-630634-4']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+</head>
+<body>
+<header>
+	<h1>Cal Animage Alpha</h1>
+	<div id="tagline">UC Berkeley's Anime Club Since 1989</div>
+</header>
+<div id="upcoming">
+	<div id="next-showing">
+		<h3>Next Showing</h3>
+		<div class="content">{% if next_showing %}
+			<span class="date">{{ next_showing.date|date:"l, F j, Y" }}</span>
+			<div class="preview">
+			</div>
+			<h4>{{ next_showing.title }}</h4>
+			<span class="time">{{ next_showing.start_time|time:"g:i A" }}&ndash;{{ next_showing.end_time|time:"g:i A" }}</span>
+			<span class="location">
+		{% if next_showing.location %}
+			{% if next_showing.location.building.map_url %}
+				<a href="{{ next_showing.location.building.map_url }}" target="_blank">{{ next_showing.location }}</a>
+			{% else %}
+				{{ next_showing.location }}
+			{% endif %}
+		{% else %}
+			TBD
+		{% endif %}
+			</span>
+			{% else %}
+			<span class="date">To Be Determined</span>
+			<div class="preview"></div>
+			<h4>To Be Determined</h4>
+			<span class="time"></span>
+			<span class="location"></span>
+		{% endif %}</div>
+	</div>
+	<div id="game-night">
+		<h3>Game Night</h3>
+		<div class="content">
+			<span class="date">Every Thursday</span>
+			<div class="preview"><img src="/images/dwinelle_hall.jpg" alt="Game Night Preview" /></div>
+			<h4>Open to everyone!</h4>
+			<span class="time">8:00 PM&ndash;10:00PM</span>
+			<span class="location"><a href="http://www.berkeley.edu/map/3dmap/3dmap.shtml?dwinelle" target="_blank">Dwinelle 246 &amp; 247</a></span>
+		</div>
+	</div>
+</div>
+<div id="wrapper">
+<div id="sidebar">
+	<h4>Navigation</h4>
+	<ul id="navigation">
+		<li><a href="/">Home</a></li>
+		<li><a href="/joining">Joining CAA</a></li>
+		<li><a href="/schedules/current">Showing Schedule</a></li>
+		<li><a href="/events">Events ⁄ Calendar</a></li>
+		<li><a href="/konshuu">Konshuu</a></li>
+		<li><a href="/library">Library</a></li>
+		<li><a href="/about">About Us</a></li>
+		<li><a href="/officers">Officers</a></li>
+	</ul>
+	<h4>Community</h4>
+	<ul id="community">
+		<li><a href="http://forum.calanimagealpha.com/">Forum</a></li>
+		<li><a href="/chat">Chatroom</a></li>
+		<li><a href="http://blog.calanimagealpha.com">Blog</a></li>
+		<li><a href="https://www.facebook.com/calanimagealpha">Facebook</a></li>
+		<li><a href="https://calmail.berkeley.edu/manage/list/listinfo/ucbanimage@lists.berkeley.edu">Mailing List</a></li>
+	</ul>
+</div>
+<section id="content">
+{% block content %}
+<h1>Error</h1>
+{% endblock %}
+</section>
+</div>
+<footer>
+<p>Subscribe to our <a href="http://blog.calanimagealpha.com/feeds/posts/default">RSS feed</a></p>
+<p>Comments or questions? Contact the webmaster at <a href="mailto:webmaster@calanimagealpha.com">webmaster@calanimagealpha.com</a></p>
+</footer>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+{% if next_showing.get_preview_filenames %}
+	var previewImages = new Array('{{ next_showing.get_preview_filenames|join:"', '" }}');
+	var previewsFolder = '/images/previews/{{ next_showing.get_preview_folder }}/';
+{% else %}
+	var previewImages = new Array('2011summer.jpg');
+	var previewsFolder = '/images/placeholders/';
+{% endif %}
+</script>
+<script type="text/javascript" src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ marathon.get_semester_display }} {{ marathon.year }} Marathon Schedule{% endblock %}
+
+{% block content %}
+<h1>{{ marathon.get_semester_display }} {{ marathon.year }} Marathon Schedule </h1>
+<p><emph>Location:</emph> {% if marathon.location %}{% if marathon.location.building.map_url %}
+<a href="{{ marathon.location.building.map_url }}" target="_blank">{{ marathon.location }}</a>
+{% else %}
+	{{ marathon.location }}
+{% endif %}
+{% else %}TBD{% endif %}<br />
+	<emph>Date:</emph> {% if marathon.date %}{{ marathon.date|date:"l F j, Y" }}{% else %}TBD{% endif %}</p>
+<table class="marathon">
+	<tr>
+		<th class="time">Time</th>
+		<th class="title">Title</th>
+	</tr>
+	{% for event in marathon.event_set.all %}
+	<tr>
+		<td>{{ event.start_time|time:"h:i A" }} &ndash; {{ event.end_time|time:"h:i A" }}</td>
+		<td>{{ event.title }}</td>
+	</tr>{% endfor %}
+</table>
+{% endblock %}
