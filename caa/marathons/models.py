@@ -25,9 +25,6 @@ class Marathon(models.Model):
     date = models.DateField(blank=True, null=True)
     location = models.ForeignKey('schedules.Location', blank=True, null=True)
     
-    def get_events(self):
-        return Event.objects.filter(marathon__exact=self)
-    
     def __unicode__(self):
         return u'%d %s' % (self.year, self.get_semester_display())
     
