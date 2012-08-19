@@ -12,7 +12,7 @@
     <hr />
     <article>
         <header>
-            <span class="time">{{ post.datetime|date:"F j, o" }}</span>
+            <span class="time">{{ post.datetime|date:"F j, Y" }}</span>
             <h1>{{ post.first_post_of_topic.topic_title|safe }}</h1>
         </header>
         <section>
