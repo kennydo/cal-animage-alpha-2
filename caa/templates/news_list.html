@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load bbcode %}
+
+{% block title %}News Posts{% endblock %}
+
+{% block content %}
+<h1>Welcome to the CAA Website!</h1>
+<p>New Cal student? Interested in CAA? Introduce yourself on <a href="http://forum.calanimagealpha.com">the forum</a>!</p>
+<p>Is this your first time visiting our website? Read all <a href="/about">about us and what we do</a>.</p>
+</p>
+{% for post in posts %}
+    <hr />
+    <article>
+        <header>
+            <span class="time">{{ post.datetime|date:"F j, o" }}</span>
+            <h1>{{ post.first_post_of_topic.topic_title|safe }}</h1>
+        </header>
+        <section>
+            <p>
+                {% bbcode post.bbcode_text %}
+            </p>
+        </section>
+        <footer>
+            <span class="author">Posted by {{ post.poster.username }}{% if post.poster.real_name %} ({{ post.poster.real_name }}){% endif %}</span>
+            <span class="comments-link">
+                <a href="http://forum.calanimagealpha.com/viewtopic.php?p={{ post.post_id }}">{{ post.num_comments }} Comments</a>
+            </span>
+        </footer>
+    </article>
+{% endfor %}
+{% if is_paginated %}
+    <hr />
+    <div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous Page</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next Page</a>
+    {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
