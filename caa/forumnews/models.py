@@ -41,6 +41,7 @@ class Post(models.Model):
     topic = models.ForeignKey(Topic)
     forum = models.ForeignKey(Forum)
     poster = models.ForeignKey(User)
+    post_approved = models.BooleanField(required=False)
     post_time = models.IntegerField()
     bbcode_uid = models.CharField(max_length=8)
     post_text = models.TextField()
@@ -49,7 +50,7 @@ class Post(models.Model):
         return datetime.datetime.fromtimestamp(self.post_time)
 
     def num_comments(self):
-        return self.first_post_of_topic.post_set.count() - 1
+        return self.first_post_of_topic.post_set..filter(post_approved=True).count() - 1
 
     def bbcode_text(self):
         text = self.post_text
