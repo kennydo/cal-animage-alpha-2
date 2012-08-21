@@ -41,7 +41,7 @@ class Post(models.Model):
     topic = models.ForeignKey(Topic)
     forum = models.ForeignKey(Forum)
     poster = models.ForeignKey(User)
-    post_approved = models.BooleanField(required=False)
+    post_approved = models.BooleanField()
     post_time = models.IntegerField()
     bbcode_uid = models.CharField(max_length=8)
     post_text = models.TextField()
