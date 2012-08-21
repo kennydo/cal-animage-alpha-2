@@ -50,7 +50,7 @@ class Post(models.Model):
         return datetime.datetime.fromtimestamp(self.post_time)
 
     def num_comments(self):
-        return self.first_post_of_topic.post_set..filter(post_approved=True).count() - 1
+        return self.first_post_of_topic.post_set.filter(post_approved=True).count() - 1
 
     def bbcode_text(self):
         text = self.post_text
