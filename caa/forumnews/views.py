@@ -10,4 +10,4 @@ class NewsPostsList(ListView):
 
     def get_queryset(self):
         return Post.objects.using('forum').filter(
-                first_post_of_topic__forum_id=settings.NEWS_FORUM_ID)
+                first_post_of_topic__forum__forum_id=settings.NEWS_FORUM_ID)
