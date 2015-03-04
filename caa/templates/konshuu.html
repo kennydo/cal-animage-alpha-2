@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Konshuu{% endblock %}
+
+{% block content %}
+<h1>Konshuu</h1>
+
+<p>Konshuu is Cal Animage Alpha's weekly newsletter, featuring articles and fanworks from both guests and current officers. Each issue includes an overview of the series that will be shown/read during weekly meetings, information about future events, and an assortment of articles on anime culture. The latest issue is available for free at each weekly showing.</p>
+
+<h2> Contributing to Konshuu</h2>
+
+<p>
+Guest submissions are always welcome! To contribute, visit <a target="_blank" href="http://j.mp/konsub">j.mp/konsub</a>.</p>
+
+<p>If you're interested in becoming a regular contributor to the newsletter, please contact the current head—Tina (mechato on IRC)—about working in the Konshuu department</p>
+
+<!--<h2>Digital Archive</h2>
+
+<p>The Konshuu archive is available <a href="http://docs.google.com/leaf?id=0BwPhV9C7MtK2YWZjYjU5MzQtMGJiNi00MTVjLThiYzAtMjVkOGY0ZmJkMTU1&hl=en">here</a>.</p>-->
+
+<h2>Read Konshuu Online</h2>
+
+<p>
+	<select id="konshuu_selection">
+		<option>Select a volume...</option>
+	{% for edition in editions %}
+		<option value="{{ edition.volume }}/{{ edition.issue }}.pdf">{{ edition }}</option>
+	{% endfor %}
+	</select>
+
+	Use the left and right arrow keys to change pages.
+</p>
+
+<canvas id="konshuu_reader" style="display: none; width: 100%; border:1px solid black;">
+</canvas>
+
+<!--<script type="text/javascript" src="http://calanimagealpha.com/pdfjs/web/compatibility.js"></script>-->
+<script type="text/javascript" src="http://calanimagealpha.com/pdfjs/build/pdf.js"></script>
+<script type="text/javascript">
+PDFJS.workerSrc = 'http://calanimagealpha.com/pdfjs/build/pdf.worker.js';
+var konshuu_canvas = document.getElementById("konshuu_reader");
+
+function renderPage(pdf, pageNumber)
+{
+	pdf.getPage(pageNumber).then(function(page) {
+			var viewport = page.getViewport(1.0);
+
+			var aspect = viewport.height / viewport.width;
+
+			konshuu_canvas.width = konshuu_canvas.clientWidth * window.devicePixelRatio;
+			konshuu_canvas.height = konshuu_canvas.width * aspect;
+
+			page.render({
+				canvasContext: konshuu_canvas.getContext('2d'),
+				viewport: page.getViewport(konshuu_canvas.width / viewport.width)
+			}).then (function() {
+				konshuu_canvas.getContext('2d').font = '28px Verdana';
+				konshuu_canvas.getContext('2d').fillText("Page "+pageNumber+" of "+pdf.numPages, 30, 50);
+			});
+		});
+}
+
+var listener = null;
+document.getElementById("konshuu_selection").onchange = function()
+{
+	konshuu_canvas.style.display = "block";
+	document.getElementById("konshuu_selection").blur();
+	if(listener)
+	{
+		document.removeEventListener("keyup", listener);
+	}
+	var pageNumber = 1;
+	var file = document.getElementById("konshuu_selection").value;
+	PDFJS.getDocument('http://calanimagealpha.com/konshuu/' + file).then(function(pdf) {
+		renderPage(pdf, 1);
+
+		function keyupListener(e)
+		{
+			if(e.keyCode == 37 && pageNumber != 1)
+			{
+				pageNumber--;
+				renderPage(pdf, pageNumber);
+			}
+			if(e.keyCode == 39 && pageNumber != pdf.numPages)
+			{
+				pageNumber++;
+				renderPage(pdf, pageNumber);
+			}
+		}
+		listener = keyupListener;
+		document.addEventListener("keyup", listener);
+	});
+};
+</script>
+{% endblock %}
