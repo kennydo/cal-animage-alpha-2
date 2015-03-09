@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Konshuu{% endblock %}
+
+{% block content %}
+<h1>Konshuu</h1>
+
+<p>Konshuu is Cal Animage Alpha's weekly newsletter, featuring articles and fanworks from both guests and current officers. Each issue includes an overview of the series that will be shown/read during weekly meetings, information about future events, and an assortment of articles on anime culture. The latest issue is available for free at each weekly showing.</p>
+
+<h2> Contributing to Konshuu</h2>
+
+<p>
+Guest submissions are always welcome! To contribute, visit <a target="_blank" href="http://j.mp/konsub">j.mp/konsub</a>.</p>
+
+<p>If you're interested in becoming a regular contributor to the newsletter, please contact the current head—Tina (mechato on IRC)—about working in the Konshuu department</p>
+
+<h2>Read Konshuu Online</h2>
+
+<p>
+        <select id="konshuu_selection">
+                <option value="default">Select an edition...</option>
+        {% for edition in editions %}
+                <option value="{{ edition.volume }}/{{ edition.issue }}.pdf">{{ edition }}</option>
+        {% endfor %}
+        </select>
+
+        Use the left and right arrow keys to change pages.
+</p>
+
+<p><img id="konshuu_progress" style="display: none;" src="http://calanimagealpha.com/images/progress.gif"></progress></p>
+
+<canvas id="konshuu_reader" style="display: none; width: 100%; border:1px solid black;">
+</canvas>
+
+<script type="text/javascript" src="http://calanimagealpha.com/pdfjs/build/pdf.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}konshuu.js"></script>
+{% endblock %}

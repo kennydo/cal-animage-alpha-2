@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 
-from caa import officers, schedules, marathons
+from caa import officers, schedules, marathons, konshuu
 from caa import forumnews
 admin.autodiscover()
 
@@ -20,6 +20,9 @@ urlpatterns = patterns('',
 
     # Previous marathon
     url(r'^marathons/(?P<year>\d{4})/(?P<semester>Fall|Spring)/$', marathons.views.MarathonDetail.as_view(), name='caa_marathon'),
+
+    # Konshuu
+    url(r'^konshuu/$', konshuu.views.KonshuuList.as_view(), name='caa_konshuu'),
 
     # Enable admin
     url(r'^admin/', include(admin.site.urls)),
